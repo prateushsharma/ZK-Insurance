@@ -17,6 +17,10 @@ const submitNumberBtn = document.getElementById(
   "submit-number-btn",
 ) as HTMLButtonElement;
 
+const submitInsurarBtn = document.getElementById(
+  "submit-insurar-btn",
+) as HTMLButtonElement;
+
 const step1 = document.getElementById("step-1") as HTMLDivElement;
 const step2Host = document.getElementById("step-2-host") as HTMLDivElement;
 const step2Join = document.getElementById("step-2-join") as HTMLDivElement;
@@ -29,7 +33,7 @@ const resultValueElement = document.getElementById(
   "result-value",
 ) as HTMLSpanElement;
 
-let myHealthData: number | null = null;
+let myNumber: number | null = null;
 
 const app = new App();
 
@@ -70,18 +74,20 @@ async function handleSubmitNumber() {
   const numberInput = document.getElementById(
     "number-input",
   ) as HTMLInputElement;
-  myHealthData = parseInt(numberInput.value, 10);
+  myNumber = parseInt(numberInput.value, 10);
 
-  if (myHealthData === null || isNaN(myHealthData)) {
-    // eslint-disable-next-line no-alert
-    alert("Please enter a valid number.");
-    return;
-  }
+  // if (myNumber === null || isNaN(myNumber)) {
+  //   // eslint-disable-next-line no-alert
+  //   alert("Please enter a valid number.");
+  //   return;
+  // }
 
   step3.classList.add("hidden");
   step4.classList.remove("hidden");
 
-  const result = await app.mpcLargest(myHealthData);
+  app.peer = "customer";
+
+  const result = await app.find_insurar_caller();
 
   step4.classList.add("hidden");
   step5.classList.remove("hidden");
@@ -91,6 +97,17 @@ async function handleSubmitNumber() {
 hostBtn.addEventListener("click", handleHost);
 joinBtn.addEventListener("click", handleJoin);
 submitNumberBtn.addEventListener("click", handleSubmitNumber);
+submitInsurarBtn.addEventListener("click", async() => {
+  console.log("submitInsurarBtn clicked");
+
+  app.peer = "provider";
+
+  const result = await app.feed_to_client_caller();
+  console.log("result: ", result);
+  
+  
+});
+
 joinSubmitBtn.addEventListener("click", handleJoinSubmit);
 
 joinCodeInput.addEventListener("keydown", (event) => {

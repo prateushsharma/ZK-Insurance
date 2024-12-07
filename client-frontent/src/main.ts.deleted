@@ -29,7 +29,7 @@ const resultValueElement = document.getElementById(
   "result-value",
 ) as HTMLSpanElement;
 
-let myNumber: number | null = null;
+let myHealthData: number | null = null;
 
 const app = new App();
 
@@ -70,9 +70,9 @@ async function handleSubmitNumber() {
   const numberInput = document.getElementById(
     "number-input",
   ) as HTMLInputElement;
-  myNumber = parseInt(numberInput.value, 10);
+  myHealthData = parseInt(numberInput.value, 10);
 
-  if (myNumber === null || isNaN(myNumber)) {
+  if (myHealthData === null || isNaN(myHealthData)) {
     // eslint-disable-next-line no-alert
     alert("Please enter a valid number.");
     return;
@@ -81,7 +81,7 @@ async function handleSubmitNumber() {
   step3.classList.add("hidden");
   step4.classList.remove("hidden");
 
-  const result = await app.mpcLargest(myNumber);
+  const result = await app.mpcLargest(myHealthData);
 
   step4.classList.add("hidden");
   step5.classList.remove("hidden");

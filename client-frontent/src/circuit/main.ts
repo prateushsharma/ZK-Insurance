@@ -5,12 +5,12 @@
 export default function main(
   a: PersonHealthProfile,
   b: [InsurancePolicyProfile],
-): InsurancePolicyProfile[] {
-  let matched_insurers: InsurancePolicyProfile[] = [];
+): number[] {
+  let matched_insurers: number[] = [];
 
   for (let i = 0; i < b.length; i++) {
     if (find_matching_insurer(a, b[i])) {
-      matched_insurers.push(b[i]);
+      matched_insurers.push(b[i].id);
     }
   }
 
@@ -37,6 +37,7 @@ function find_matching_insurer(
 }
 
 interface InsurancePolicyProfile {
+  id: number;
   age: {
     min: number;
     max: number;
