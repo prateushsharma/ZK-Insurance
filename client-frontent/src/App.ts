@@ -76,8 +76,47 @@ export default class App {
     assert(party !== undefined, "Party must be set");
     assert(socket !== undefined, "Socket must be set");
 
-    const input = party === "customer" ? { a: value } : { b: value };
+    // const input = party === "customer" ? { a: value } : { b: value };
+    const input = { a: value } ;
     const otherParty = party === "customer" ? "customer" : "provider";
+
+    const protocol = await generateProtocol();
+
+    const session = protocol.join(party, input, (to, msg) => {
+      assert(to === otherParty, "Unexpected party");
+      socket.send(msg);
+    });
+
+    this.msgQueue.stream((msg: unknown) => {
+      if (!(msg instanceof Uint8Array)) {
+        throw new Error("Unexpected message type");
+      }
+
+      session.handleMessage(otherParty, msg);
+    });
+
+    const output = await session.output();
+
+    if (
+      output === null ||
+      typeof output !== "object" ||
+      typeof output.main !== "number"
+    ) {
+      throw new Error("Unexpected output");
+    }
+
+    return output.main;
+  }
+
+  async feed_to_client(value: [InsurancePolicyProfile]): Promise<number> {
+    const { peer, socket } = this;
+    let party = peer;
+
+    assert(party !== undefined, "Party must be set");
+    assert(socket !== undefined, "Socket must be set");
+
+    const input =  { b: value };
+    const otherParty = party === "customer" ? "customer" : "privider";
 
     const protocol = await generateProtocol();
 
