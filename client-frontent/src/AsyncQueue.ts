@@ -19,20 +19,22 @@ export default class AsyncQueue<T> {
 
     return new Promise((resolve, reject) => {
       if (abortSignal?.aborted) {
-        reject(new Error('Stream stopped'));
+        reject(new Error("Stream stopped"));
         return;
       }
 
       const onAbort = () => {
-        this.pendingResolves = this.pendingResolves.filter(r => r !== resolve);
-        abortSignal?.removeEventListener('abort', onAbort);
-        reject(new Error('Stream stopped'));
+        this.pendingResolves = this.pendingResolves.filter(
+          (r) => r !== resolve,
+        );
+        abortSignal?.removeEventListener("abort", onAbort);
+        reject(new Error("Stream stopped"));
       };
 
-      abortSignal?.addEventListener('abort', onAbort);
+      abortSignal?.addEventListener("abort", onAbort);
 
       this.pendingResolves.push((msg: T) => {
-        abortSignal?.removeEventListener('abort', onAbort);
+        abortSignal?.removeEventListener("abort", onAbort);
         resolve(msg);
       });
     });
@@ -48,7 +50,7 @@ export default class AsyncQueue<T> {
         handler(msg);
         loop();
       } catch (err) {
-        if (err instanceof Error && err.message === 'Stream stopped') {
+        if (err instanceof Error && err.message === "Stream stopped") {
           // Exit the loop gracefully
         } else {
           // Handle other potential errors
