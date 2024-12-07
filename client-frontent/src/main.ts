@@ -33,7 +33,7 @@ const resultValueElement = document.getElementById(
   "result-value",
 ) as HTMLSpanElement;
 
-let myNumber: number | null = null;
+// let myNumber: number | null = null;
 
 const app = new App();
 
@@ -71,10 +71,10 @@ async function handleJoinSubmit() {
 }
 
 async function handleSubmitNumber() {
-  const numberInput = document.getElementById(
-    "number-input",
-  ) as HTMLInputElement;
-  myNumber = parseInt(numberInput.value, 10);
+  // const numberInput = document.getElementById(
+  //   "number-input",
+  // ) as HTMLInputElement;
+  // myNumber = parseInt(numberInput.value, 10);
 
   // if (myNumber === null || isNaN(myNumber)) {
   //   // eslint-disable-next-line no-alert
