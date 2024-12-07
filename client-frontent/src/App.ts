@@ -82,7 +82,6 @@ export default class App {
     //   gender: "male",
     // };
 
-
     let user_health_profile = {
       age: 25,
       height: 180,
@@ -94,8 +93,12 @@ export default class App {
     return await this.find_insurar(user_health_profile);
   }
 
-  async find_insurar(values: { age: number, height: number, weight: number }): Promise<number> {
-    const { party , socket } = this;
+  async find_insurar(values: {
+    age: number;
+    height: number;
+    weight: number;
+  }): Promise<number> {
+    const { party, socket } = this;
 
     assert(party !== undefined, "Party must be set");
     assert(socket !== undefined, "Socket must be set");
@@ -103,7 +106,7 @@ export default class App {
     // const input = party === "customer" ? { a: value } : { b: value };
     const input = values;
     // const otherParty = party === "alice" ? "customer" : "provider";
-    const otherParty = party === 'alice' ? 'bob' : 'alice';
+    const otherParty = party === "alice" ? "bob" : "alice";
 
     const protocol = await generateProtocol();
 
@@ -135,24 +138,31 @@ export default class App {
   }
 
   async feed_to_client_caller(): Promise<number> {
-    let insurance_profiles= 
-      {
-        // id: 1,
-        min_age: 20, max_age: 30 ,
-        min_height: 170, max_height: 180 ,
-        min_weight: 60, max_weight: 80 ,
-        // bloodGroup: ["B+"],
-        // gender: ["female"],
-      }
-    ;
-
+    let insurance_profiles = {
+      // id: 1,
+      min_age: 20,
+      max_age: 30,
+      min_height: 170,
+      max_height: 180,
+      min_weight: 60,
+      max_weight: 80,
+      // bloodGroup: ["B+"],
+      // gender: ["female"],
+    };
     console.log("feedign insurance_profiles", insurance_profiles);
 
     return await this.feed_to_client(insurance_profiles);
   }
 
   // "min_age", "max_age", "min_height", "max_height", "min_weight", "max_weight"
-  async feed_to_client(values: { min_age: number, max_age: number, min_height: number, max_height: number, min_weight: number, max_weight: number }): Promise<number> {
+  async feed_to_client(values: {
+    min_age: number;
+    max_age: number;
+    min_height: number;
+    max_height: number;
+    min_weight: number;
+    max_weight: number;
+  }): Promise<number> {
     const { party, socket } = this;
 
     assert(party !== undefined, "Party must be set");
@@ -160,43 +170,6 @@ export default class App {
 
     const input = values;
     // const otherParty = party === "customer" ? "customer" : "privider";
-    const otherParty = party === 'alice' ? 'bob' : 'alice';
-
-    const protocol = await generateProtocol();
-
-    const session = protocol.join(party, input, (to, msg) => {
-      assert(to === otherParty, "Unexpected party");
-      socket.send(msg);
-    });
-
-    this.msgQueue.stream((msg: unknown) => {
-      if (!(msg instanceof Uint8Array)) {
-        throw new Error("Unexpected message type");
-      }
-
-      session.handleMessage(otherParty, msg);
-    });
-
-    const output = await session.output();
-
-    if (
-      output === null ||
-      typeof output !== "object" ||
-      typeof output.main !== "number"
-    ) {
-      throw new Error("Unexpected output");
-    }
-
-    return output.main;
-  }
-
-  async mpcLargest(value: number): Promise<number> {
-    const { party, socket } = this;
-
-    assert(party !== undefined, "Party must be set");
-    assert(socket !== undefined, "Socket must be set");
-
-    const input = party === "alice" ? { a: value } : { b: value };
     const otherParty = party === "alice" ? "bob" : "alice";
 
     const protocol = await generateProtocol();

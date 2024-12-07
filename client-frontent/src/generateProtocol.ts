@@ -20,7 +20,14 @@ export default async function generateProtocol() {
     },
     {
       name: "bob",
-      inputs: ["min_age", "max_age", "min_height", "max_height", "min_weight", "max_weight"],
+      inputs: [
+        "min_age",
+        "max_age",
+        "min_height",
+        "max_height",
+        "min_weight",
+        "max_weight",
+      ],
       outputs: ["main"],
     },
   ];

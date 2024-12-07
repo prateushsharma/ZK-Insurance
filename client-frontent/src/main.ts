@@ -85,7 +85,6 @@ async function handleSubmitNumber() {
   step3.classList.add("hidden");
   step4.classList.remove("hidden");
 
-
   const result = await app.find_insurar_caller();
 
   step4.classList.add("hidden");
@@ -98,7 +97,6 @@ joinBtn.addEventListener("click", handleJoin);
 submitNumberBtn.addEventListener("click", handleSubmitNumber);
 submitInsurarBtn.addEventListener("click", async () => {
   console.log("submitInsurarBtn clicked");
-
 
   const result = await app.feed_to_client_caller();
   console.log("result: ", result);
