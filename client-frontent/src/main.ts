@@ -97,15 +97,13 @@ async function handleSubmitNumber() {
 hostBtn.addEventListener("click", handleHost);
 joinBtn.addEventListener("click", handleJoin);
 submitNumberBtn.addEventListener("click", handleSubmitNumber);
-submitInsurarBtn.addEventListener("click", async() => {
+submitInsurarBtn.addEventListener("click", async () => {
   console.log("submitInsurarBtn clicked");
 
   app.peer = "provider";
 
   const result = await app.feed_to_client_caller();
   console.log("result: ", result);
-  
-  
 });
 
 joinSubmitBtn.addEventListener("click", handleJoinSubmit);

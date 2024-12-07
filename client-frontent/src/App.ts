@@ -77,12 +77,12 @@ export default class App {
       height: 180,
       weight: 70,
       bloodGroup: "B+",
-      gender: "male"
+      gender: "male",
     };
 
     console.log("finding insurar for user_health_profile", user_health_profile);
-    
-      return await this.find_insurar(user_health_profile);
+
+    return await this.find_insurar(user_health_profile);
   }
 
   async find_insurar(value: PersonHealthProfile): Promise<number> {
@@ -93,7 +93,7 @@ export default class App {
     assert(socket !== undefined, "Socket must be set");
 
     // const input = party === "customer" ? { a: value } : { b: value };
-    const input = { a: value } ;
+    const input = { a: value };
     const otherParty = party === "customer" ? "customer" : "provider";
 
     const protocol = await generateProtocol();
@@ -113,7 +113,6 @@ export default class App {
 
     const output = await session.output();
     console.log("output: ", output);
-    
 
     if (
       output === null ||
@@ -126,21 +125,21 @@ export default class App {
     return output.main;
   }
 
-
   async feed_to_client_caller(): Promise<number> {
-    let insurance_profiles: InsurancePolicyProfile[] = [{
-      id: 1,
-      age: { min: 20, max: 30 },
-      height: { min: 170, max: 180 },
-      weight: { min: 60, max: 80 },
-      bloodGroup: ["B+"],
-      gender: ["female"]
-      
-    }];
+    let insurance_profiles: InsurancePolicyProfile[] = [
+      {
+        id: 1,
+        age: { min: 20, max: 30 },
+        height: { min: 170, max: 180 },
+        weight: { min: 60, max: 80 },
+        bloodGroup: ["B+"],
+        gender: ["female"],
+      },
+    ];
 
     console.log("feedign insurance_profiles", insurance_profiles);
-    
-      return await this.feed_to_client(insurance_profiles);
+
+    return await this.feed_to_client(insurance_profiles);
   }
 
   async feed_to_client(value: InsurancePolicyProfile[]): Promise<number> {
@@ -150,7 +149,7 @@ export default class App {
     assert(party !== undefined, "Party must be set");
     assert(socket !== undefined, "Socket must be set");
 
-    const input =  { b: value };
+    const input = { b: value };
     const otherParty = party === "customer" ? "customer" : "privider";
 
     const protocol = await generateProtocol();

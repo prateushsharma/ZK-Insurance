@@ -17,8 +17,6 @@ export default function main(
   max_height: number,
   min_weight: number,
   max_weight: number,
-
-
 ): boolean {
   // let matched_insurers: number[] = [];
 
@@ -28,17 +26,16 @@ export default function main(
   //   }
   // }
 
-
   if (age < min_age || age > max_age) {
     return false;
   } else if (height < min_height || height > max_height) {
     return false;
   } else if (weight < min_weight || weight > max_weight) {
     return false;
-  // } else if (!b.bloodGroup.includes(a.bloodGroup)) {
-  //   return false;
-  // } else if (!b.gender.includes(a.gender)) {
-  //   return false;
+    // } else if (!b.bloodGroup.includes(a.bloodGroup)) {
+    //   return false;
+    // } else if (!b.gender.includes(a.gender)) {
+    //   return false;
   } else {
     return true;
   }
