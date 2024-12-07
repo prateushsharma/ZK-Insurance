@@ -15,12 +15,12 @@ export default async function generateProtocol() {
   const mpcSettings = [
     {
       name: "alice",
-      inputs: ["a"],
+      inputs: ["age", "height", "weight"],
       outputs: ["main"],
     },
     {
       name: "bob",
-      inputs: ["b"],
+      inputs: ["min_age", "max_age", "min_height", "max_height", "min_weight", "max_weight"],
       outputs: ["main"],
     },
   ];

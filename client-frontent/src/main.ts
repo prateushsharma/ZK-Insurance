@@ -85,7 +85,6 @@ async function handleSubmitNumber() {
   step3.classList.add("hidden");
   step4.classList.remove("hidden");
 
-  app.peer = "customer";
 
   const result = await app.find_insurar_caller();
 
@@ -100,7 +99,6 @@ submitNumberBtn.addEventListener("click", handleSubmitNumber);
 submitInsurarBtn.addEventListener("click", async () => {
   console.log("submitInsurarBtn clicked");
 
-  app.peer = "provider";
 
   const result = await app.feed_to_client_caller();
   console.log("result: ", result);
